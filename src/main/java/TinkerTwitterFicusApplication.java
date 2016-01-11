@@ -3,6 +3,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TinkerTwitterFicusApplication {
@@ -19,10 +20,11 @@ public class TinkerTwitterFicusApplication {
         Twitter twitter = TwitterFactory.getSingleton();
 
         try {
-            twitter.updateStatus("");
+            logger.info("updating status...");
+            twitter.updateStatus("This is an awesome test tweet!");
+            logger.info("status updated");
         } catch (TwitterException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Exception occurred while updating status", e);
         }
-
     }
 }
