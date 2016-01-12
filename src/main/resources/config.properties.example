@@ -1,0 +1,5 @@
+# Brick Connection
+host=localhost
+port=4223
+# Moisture Brick UID
+uid=foo
