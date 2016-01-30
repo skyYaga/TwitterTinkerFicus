@@ -20,6 +20,9 @@ public class TweetMessageGenerator {
     public static final String RECOVERY_2 = "Thanks for the drink @%s! Tasted like pure awesomeness (moisture: %d)";
     public static final String RECOVERY_3 = "Damn, that shower was f*ckin' nice @%s (moisture: %d)";
 
+    public static final String INFO_1 = "Yo people, what's going on? I'm feeling awesome (moisture: %d)";
+    public static final String INFO_2 = "It's time for a service tweet. My current moisture value is %d)";
+    public static final String INFO_3 = "OMG!!! What was that? Ah, nothing... (moisture: %d)";
 
     /**
      * Create a random tweet message asking the owner to pour
@@ -49,6 +52,21 @@ public class TweetMessageGenerator {
         ArrayList<String> pourTweets = new ArrayList<String>(Arrays.asList(RECOVERY_1, RECOVERY_2, RECOVERY_3));
         int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size() - 1);
         String message = String.format(pourTweets.get(tweetNr), owner, moisture);
+
+        LOGGER.info("Generated tweet message: " + message);
+
+        return message;
+    }
+
+    /**
+     * Create a random info message publishing the current moisture value
+     * @param moisture current moisture value
+     * @return random info tweet
+     */
+    public static String createStatusTweet(int moisture) {
+        ArrayList<String> pourTweets = new ArrayList<String>(Arrays.asList(INFO_1, INFO_2, INFO_3));
+        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size() - 1);
+        String message = String.format(pourTweets.get(tweetNr), moisture);
 
         LOGGER.info("Generated tweet message: " + message);
 

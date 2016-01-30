@@ -87,23 +87,29 @@ public class TinkerTwitterFicusApplication {
                     // Tweet it
                     LOGGER.info("tweeting message...");
                     TwitterClient twitterClient = new TwitterClient();
-                    //twitterClient.tweet(message);
+                    twitterClient.tweet(message);
                 }
 
                 moistureMeasurer.close();
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.MINUTES);
     }
 
     private void scheduleRegularTwitterUpdates() {
         ScheduledFuture scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             public void run() {
-                TwitterClient twitterClient = new TwitterClient();
-                String message = "Yo, my current moisture value is " + moisture;
+                MoistureMeasurer moistureMeasurer = new MoistureMeasurer(HOST, PORT, UID);
+                moisture = moistureMeasurer.getMoistureValue();
+                LOGGER.info("The current moisture value is: " + moisture);
+
+                String message = TweetMessageGenerator.createStatusTweet(moisture);
                 LOGGER.info("Sending twitter update: " + message);
-                //twitterClient.tweet(message);
+                TwitterClient twitterClient = new TwitterClient();
+                twitterClient.tweet(message);
+
+                moistureMeasurer.close();
             }
-        }, 1, 8, TimeUnit.HOURS);
+        }, 0, 1, TimeUnit.DAYS);
     }
 }

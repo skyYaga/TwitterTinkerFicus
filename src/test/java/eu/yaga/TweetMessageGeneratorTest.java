@@ -21,4 +21,10 @@ public class TweetMessageGeneratorTest {
         Assert.assertTrue(message.contains("@nobody"));
         Assert.assertTrue(message.contains("1000"));
     }
+
+    @Test
+    public void testRandomInfoTweet() {
+        String message = TweetMessageGenerator.createStatusTweet(1000);
+        Assert.assertTrue(message.contains("1000"));
+    }
 }
