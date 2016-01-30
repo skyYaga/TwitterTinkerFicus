@@ -9,17 +9,17 @@ import java.util.logging.Logger;
 
 public class TwitterClient {
 
-    static Logger logger = Logger.getLogger(TwitterClient.class.getName());
-    static Twitter twitter = TwitterFactory.getSingleton();
+    private static final Logger LOGGER = Logger.getLogger(TwitterClient.class.getName());
+    private Twitter twitter = TwitterFactory.getSingleton();
 
-    public static void tweet(String message) {
+    public void tweet(String message) {
         try {
-            logger.info("updating status...");
+            LOGGER.info("updating status...");
             twitter.updateStatus("This is an awesome test tweet!");
-            logger.info("status updated");
+            LOGGER.info("status updated");
         } catch (
                 TwitterException e) {
-            logger.log(Level.SEVERE, "Exception occurred while updating status", e);
+            LOGGER.log(Level.SEVERE, "Exception occurred while updating status", e);
         }
     }
 }

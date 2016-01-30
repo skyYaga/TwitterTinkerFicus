@@ -3,3 +3,7 @@ host=localhost
 port=4223
 # Moisture Brick UID
 uid=foo
+# Twitter username of the plant's owner
+owner=
+# Border of the moisture sensor (when do I have to) pour?
+border=3000
