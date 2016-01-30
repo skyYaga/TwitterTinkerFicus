@@ -30,14 +30,16 @@ public class MoistureAnalyzer {
         int lastMoistureTmp = lastMoisture;
         lastMoisture = moisture;
 
-        if (moisture <= LOWER_BORDER && lastMoistureTmp > LOWER_BORDER) {
-            LOGGER.info("Moisture has fallen below border (" + LOWER_BORDER + ").");
-            return TweetMessageGenerator.createPourTweet(OWNER, moisture);
-        }
+        if (lastMoistureTmp != 0) {
+            if (moisture <= LOWER_BORDER && lastMoistureTmp > LOWER_BORDER) {
+                LOGGER.info("Moisture has fallen below border (" + LOWER_BORDER + ").");
+                return TweetMessageGenerator.createPourTweet(OWNER, moisture);
+            }
 
-        if (moisture > LOWER_BORDER && lastMoistureTmp <= LOWER_BORDER) {
-            LOGGER.info("Moisture recovered (>" + LOWER_BORDER + ")");
-            return TweetMessageGenerator.createPourTweet(OWNER, moisture);
+            if (moisture > LOWER_BORDER && lastMoistureTmp <= LOWER_BORDER) {
+                LOGGER.info("Moisture recovered (>" + LOWER_BORDER + ")");
+                return TweetMessageGenerator.createRecoveryTweet(OWNER, moisture);
+            }
         }
 
         return null;
