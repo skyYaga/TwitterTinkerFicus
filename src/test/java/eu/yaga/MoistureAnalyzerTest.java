@@ -31,6 +31,7 @@ public class MoistureAnalyzerTest {
 
     @Test
     public void testRecovery() {
+        analyzer.analyze(500);
         String message = analyzer.analyze(2000);
         Assert.assertEquals(String.class, message.getClass());
     }

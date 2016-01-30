@@ -11,10 +11,12 @@ public class MoistureAnalyzer {
 
     private int lastMoisture = 0;
     private static int LOWER_BORDER;
+    private static int UPPER_BORDER;
     private static String OWNER;
 
     public MoistureAnalyzer(int border, String owner) {
-        LOWER_BORDER = border;
+        LOWER_BORDER = border - 25;
+        UPPER_BORDER = border + 25;
         OWNER = owner;
     }
 
@@ -36,7 +38,7 @@ public class MoistureAnalyzer {
                 return TweetMessageGenerator.createPourTweet(OWNER, moisture);
             }
 
-            if (moisture > LOWER_BORDER && lastMoistureTmp <= LOWER_BORDER) {
+            if (moisture > UPPER_BORDER && lastMoistureTmp <= UPPER_BORDER) {
                 LOGGER.info("Moisture recovered (>" + LOWER_BORDER + ")");
                 return TweetMessageGenerator.createRecoveryTweet(OWNER, moisture);
             }

@@ -87,7 +87,7 @@ public class TinkerTwitterFicusApplication {
                     // Tweet it
                     LOGGER.info("tweeting message...");
                     TwitterClient twitterClient = new TwitterClient();
-                    twitterClient.tweet(message);
+                    //twitterClient.tweet(message);
                 }
 
                 moistureMeasurer.close();
@@ -102,7 +102,7 @@ public class TinkerTwitterFicusApplication {
                 TwitterClient twitterClient = new TwitterClient();
                 String message = "Yo, my current moisture value is " + moisture;
                 LOGGER.info("Sending twitter update: " + message);
-                twitterClient.tweet(message);
+                //twitterClient.tweet(message);
             }
         }, 1, 8, TimeUnit.HOURS);
     }

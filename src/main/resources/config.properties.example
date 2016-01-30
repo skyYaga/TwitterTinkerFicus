@@ -6,4 +6,4 @@ uid=foo
 # Twitter username of the plant's owner
 owner=
 # Border of the moisture sensor (when do I have to) pour?
-border=3000
+border=2900
