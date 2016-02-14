@@ -115,6 +115,6 @@ public class TinkerTwitterFicusApplication {
 
                 moistureMeasurer.close();
             }
-        }, 0, 1, TimeUnit.DAYS);
+        }, 1, 1, TimeUnit.DAYS);
     }
 }

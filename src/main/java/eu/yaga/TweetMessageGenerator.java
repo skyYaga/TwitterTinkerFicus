@@ -21,7 +21,7 @@ public class TweetMessageGenerator {
     public static final String RECOVERY_3 = "Damn, that shower was f*ckin' nice @%s (moisture: %d) #FicusLife";
 
     public static final String INFO_1 = "Yo people, what's going on? I'm feeling awesome, enjoying #FicusLife (moisture: %d)";
-    public static final String INFO_2 = "It's time for a service tweet. My current moisture value is %d) #FicusLife";
+    public static final String INFO_2 = "It's time for a service tweet. My current moisture value is %d #FicusLife";
     public static final String INFO_3 = "OMG!!! What was that? Ah, nothing... (moisture: %d) #FicusLife";
 
     /**
