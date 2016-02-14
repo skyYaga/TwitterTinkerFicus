@@ -15,7 +15,7 @@ public class TwitterClient {
     public void tweet(String message) {
         try {
             LOGGER.info("updating status...");
-            twitter.updateStatus("This is an awesome test tweet!");
+            twitter.updateStatus(message);
             LOGGER.info("status updated");
         } catch (
                 TwitterException e) {

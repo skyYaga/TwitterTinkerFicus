@@ -50,8 +50,10 @@ public class TinkerTwitterFicusApplication {
             BORDER = Integer.parseInt(prop.getProperty("border"));
         } catch (FileNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Unable to load config.properties", e);
+            System.exit(1);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error loading properties from config.properties", e);
+            System.exit(2);
         } finally {
             if (input != null) {
                 try {
@@ -103,10 +105,13 @@ public class TinkerTwitterFicusApplication {
                 moisture = moistureMeasurer.getMoistureValue();
                 LOGGER.info("The current moisture value is: " + moisture);
 
-                String message = TweetMessageGenerator.createStatusTweet(moisture);
-                LOGGER.info("Sending twitter update: " + message);
-                TwitterClient twitterClient = new TwitterClient();
-                twitterClient.tweet(message);
+                if (moisture > 0) {
+                    // Tweet only at valid values
+                    String message = TweetMessageGenerator.createStatusTweet(moisture);
+                    LOGGER.info("Sending twitter update: " + message);
+                    TwitterClient twitterClient = new TwitterClient();
+                    twitterClient.tweet(message);
+                }
 
                 moistureMeasurer.close();
             }

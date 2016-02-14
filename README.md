@@ -12,3 +12,4 @@ An application that measures moisture using Tinkerforge and twitters results.
 4. Rename `twitter4j.properties.example` to `twitter4j.properties` and configure it with your Twitter app's values
 5. Rename `config.properties.example` to `config.properties and` configure it
 6. Start `TinkerTwitterFicusApplication`
+7. If you want to create a jar File, run `mvn install`
