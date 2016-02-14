@@ -34,13 +34,13 @@ public class MoistureAnalyzer {
 
         if (lastMoistureTmp != 0) {
             if (moisture <= LOWER_BORDER && lastMoistureTmp > LOWER_BORDER) {
-                LOGGER.info("Moisture has fallen below border (" + LOWER_BORDER + ").");
-                return TweetMessageGenerator.createPourTweet(OWNER, moisture);
+                LOGGER.info("Moisture recovery: below border (" + LOWER_BORDER + ").");
+                return TweetMessageGenerator.createRecoveryTweet(OWNER, moisture);
             }
 
             if (moisture > UPPER_BORDER && lastMoistureTmp <= UPPER_BORDER) {
-                LOGGER.info("Moisture recovered (>" + LOWER_BORDER + ")");
-                return TweetMessageGenerator.createRecoveryTweet(OWNER, moisture);
+                LOGGER.info("Moisture alert: (>" + UPPER_BORDER + ")");
+                return TweetMessageGenerator.createPourTweet(OWNER, moisture);
             }
         }
 
