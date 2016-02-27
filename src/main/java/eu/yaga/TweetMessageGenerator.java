@@ -33,7 +33,7 @@ public class TweetMessageGenerator {
      */
     public static String createPourTweet(String owner, int moisture) {
         ArrayList<String> pourTweets = new ArrayList<String>(Arrays.asList(POUR_1, POUR_2, POUR_3));
-        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size() - 1);
+        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size());
         String message = String.format(pourTweets.get(tweetNr), owner, moisture);
 
         LOGGER.info("Generated tweet message: " + message);
@@ -50,7 +50,7 @@ public class TweetMessageGenerator {
      */
     public static String createRecoveryTweet(String owner, int moisture) {
         ArrayList<String> pourTweets = new ArrayList<String>(Arrays.asList(RECOVERY_1, RECOVERY_2, RECOVERY_3));
-        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size() - 1);
+        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size());
         String message = String.format(pourTweets.get(tweetNr), owner, moisture);
 
         LOGGER.info("Generated tweet message: " + message);
@@ -65,7 +65,7 @@ public class TweetMessageGenerator {
      */
     public static String createStatusTweet(int moisture) {
         ArrayList<String> pourTweets = new ArrayList<String>(Arrays.asList(INFO_1, INFO_2, INFO_3));
-        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size() - 1);
+        int tweetNr = ThreadLocalRandom.current().nextInt(0, pourTweets.size());
         String message = String.format(pourTweets.get(tweetNr), moisture);
 
         LOGGER.info("Generated tweet message: " + message);
