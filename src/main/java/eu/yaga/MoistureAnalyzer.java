@@ -13,7 +13,7 @@ public class MoistureAnalyzer {
     private static int LOWER_BORDER;
     private static int UPPER_BORDER;
     private static String OWNER;
-    private StateEnum state = null;
+    private StateEnum majorState = StateEnum.UNKNOWN;
 
     public MoistureAnalyzer(int border, String owner) {
         LOWER_BORDER = border - 25;
@@ -28,13 +28,13 @@ public class MoistureAnalyzer {
      * @return message or null, if nothing changed
      */
     public String analyze(int moisture) {
-        if (state == null) {
-            if (moisture <= LOWER_BORDER) {
-                state = StateEnum.BELOW_BORDER;
-            } else if (moisture >= UPPER_BORDER) {
-                state = StateEnum.ABOVE_BORDER;
+        if (majorState == StateEnum.UNKNOWN) {
+            if (moisture <= LOWER_BORDER && lastMoisture <= LOWER_BORDER && moisture > 0) {
+                majorState = StateEnum.LAST_BELOW_BORDER;
+            } else if (moisture >= UPPER_BORDER && lastMoisture >= UPPER_BORDER) {
+                majorState = StateEnum.LAST_ABOVE_BORDER;
             }
-            LOGGER.info("Setting state to " + state);
+            LOGGER.info("Setting state to " + majorState);
         }
 
         LOGGER.info("Analyzing moisture (" + moisture + ") / last moisture: " + lastMoisture);
@@ -43,17 +43,19 @@ public class MoistureAnalyzer {
         lastMoisture = moisture;
 
         if (lastMoistureTmp != 0) {
-            if (moisture <= LOWER_BORDER && lastMoistureTmp > LOWER_BORDER && state.equals(StateEnum.ABOVE_BORDER)) {
+            if (moisture <= LOWER_BORDER && lastMoistureTmp > LOWER_BORDER &&
+                    (majorState.equals(StateEnum.LAST_ABOVE_BORDER) || majorState.equals(StateEnum.UNKNOWN))) {
                 LOGGER.info("Moisture recovery: below border (" + LOWER_BORDER + ").");
-                state = StateEnum.BELOW_BORDER;
-                LOGGER.info("Setting state to " + state);
+                majorState = StateEnum.LAST_BELOW_BORDER;
+                LOGGER.info("Setting state to " + majorState);
                 return TweetMessageGenerator.createRecoveryTweet(OWNER, moisture);
             }
 
-            if (moisture > UPPER_BORDER && lastMoistureTmp <= UPPER_BORDER && state.equals(StateEnum.BELOW_BORDER)) {
+            if (moisture > UPPER_BORDER && lastMoistureTmp <= UPPER_BORDER &&
+                    (majorState.equals(StateEnum.LAST_BELOW_BORDER) || majorState.equals(StateEnum.UNKNOWN))) {
                 LOGGER.info("Moisture alert: (>" + UPPER_BORDER + ")");
-                state = StateEnum.ABOVE_BORDER;
-                LOGGER.info("Setting state to " + state);
+                majorState = StateEnum.LAST_ABOVE_BORDER;
+                LOGGER.info("Setting state to " + majorState);
                 return TweetMessageGenerator.createPourTweet(OWNER, moisture);
             }
         }
